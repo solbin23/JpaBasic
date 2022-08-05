@@ -41,22 +41,26 @@ public class JpaMain {
 
             Member member = new Member();
             member.setName("member1");
-            member.setTeam(team);
+            member.changeTeam(team);//** 연관관계메서드
             em.persist(member);
+
+            //team.getMembers().add(member);//**
 
             em.flush();
             em.clear();
 
             //조회
-            Member findMember = em.find(Member.class, member.getId());
-            List<Member> members = findMember.getTeam().getMembers();
+            Team findTeam = em.find(Team.class, team.getId());
+            List<Member> members = findTeam.getMembers();
+
+
             for (Member m : members) {
                 System.out.println("m.getName() = " + m.getName());
             }
 
-            //수정
+            /*//수정
             Team newTeam = em.find(Team.class, 10L);
-            findMember.setTeam(newTeam);
+            findMember.setTeam(newTeam);*/
             
             tx.commit(); //커밋시점에 db에 쿼리가 날라감
 

@@ -15,7 +15,7 @@ public class Member {
     //private Long teamId;
 
     @ManyToOne //Member 테이블과 관계가 어떻게 돼
-    @JoinColumn(name = "TEAM_ID") //join하는 컬럼이 뭐야?
+   @JoinColumn(name = "TEAM_ID") //join하는 컬럼이 뭐야?
     private Team team;
 
     public Long getId() {
@@ -38,7 +38,8 @@ public class Member {
         return team;
     }
 
-    public void setTeam(Team team) {
+    public void changeTeam(Team team) {
         this.team = team;
+        team.getMembers().add(this); //this => member(나 자신) 의 인스턴스를 getMembers에 넣어
     }
 }
